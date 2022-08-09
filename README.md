@@ -236,13 +236,14 @@ Locate the AVB+VAE folder trained using `main.py`:
 
 ## BibTeX
 
-__TODO__: Update with TMLR citation upon publication.
-
-    @article{loaiza2022diagnosing,
-      title={Diagnosing and Fixing Manifold Overfitting in Deep Generative Models},
-      author={Loaiza-Ganem, Gabriel and Ross, Brendan Leigh and Cresswell, Jesse C and Caterini, Anthony L},
-      journal={arXiv preprint arXiv:2204.07172},
-      year={2022}
+    @article{
+        loaiza-ganem2022diagnosing,
+        title={Diagnosing and Fixing Manifold Overfitting in Deep Generative Models},
+        author={Gabriel Loaiza-Ganem and Brendan Leigh Ross and Jesse C Cresswell and Anthony L. Caterini},
+        journal={Transactions on Machine Learning Research},
+        year={2022},
+        url={https://openreview.net/forum?id=0nEZCVshxS},
+        note={}
     }
 
 ## Appendix
