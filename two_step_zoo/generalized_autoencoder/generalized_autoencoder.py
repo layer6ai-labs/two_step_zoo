@@ -1,3 +1,5 @@
+import warnings
+
 import torch
 from functorch import jvp
 
@@ -103,12 +105,20 @@ class GeneralizedAutoEncoder(TwoStepComponent):
         return out
 
     @batch_or_dataloader()
-    def log_det_jtj(self, x):
+    def log_det_jtj(self, x, eps=1e-9):
         z = self.encode(x)
         jac = self._decoder_jacobian(z)
         jtj = torch.bmm(jac.transpose(1, 2), jac)
 
-        cholesky_factor = torch.linalg.cholesky(jtj)
+        try:
+            cholesky_factor = torch.linalg.cholesky(jtj)
+        except torch._C._LinAlgError:
+            warnings.warn(
+                f"Singular JTJ for {self.model_type}. Adding eps={eps} to its diagonal entries for "
+                "log-det computation.")
+            jtj += torch.eye(jac.shape[-1]) * eps
+            cholesky_factor = torch.linalg.cholesky(jtj)
+
         cholesky_diagonal = torch.diagonal(cholesky_factor, dim1=1, dim2=2)
         log_det_jtj = 2 * torch.sum(torch.log(cholesky_diagonal), dim=1, keepdim=True)
 
