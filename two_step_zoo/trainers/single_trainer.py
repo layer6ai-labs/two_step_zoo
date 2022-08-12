@@ -63,6 +63,9 @@ class BaseTrainer:
         else:
             self.evaluator = evaluator
 
+        assert early_stopping_metric is None or early_stopping_metric in evaluator.valid_metrics, \
+            f"Early stopping metric must be one of the validation metrics provided."
+
         self.only_test = only_test
 
     def train(self):
