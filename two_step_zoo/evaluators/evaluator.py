@@ -1,3 +1,4 @@
+import warnings
 from inspect import getmembers, isfunction
 
 from . import metrics
@@ -41,7 +42,11 @@ class Evaluator:
     def _create_metrics_dict(self, metrics, loader, cache):
         metrics_dict = {}
         for metric in metrics:
-            metric_result = self.evaluate(loader, metric, cache=cache)
+            try:
+                metric_result = self.evaluate(loader, metric, cache=cache)
+            except NotImplementedError:
+                warnings.warn(f"Metric {metric} not implemented for provided model. Skipping.")
+                continue
             if isinstance(metric_result, dict):
                 metrics_dict.update(metric_result)
             else:
