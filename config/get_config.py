@@ -7,7 +7,7 @@ from .shared_config import get_shared_config
 
 
 # Add datasets below
-_VALID_DATASETS = ["mnist", "fashion-mnist", "cifar10", "svhn", "celeba", "sphere"]
+_VALID_DATASETS = ["mnist", "fashion-mnist", "cifar10", "svhn", "celeba", "sphere", "photons1", "pions1", "electrons2", "electrons3"]
 
 
 def get_single_config(dataset, model, gae, standalone):

@@ -61,6 +61,7 @@ def get_ood_evaluator(
     }
 
     oos_train_loader, _, oos_test_loader = get_loaders(
+        cfg,
         dataset=ood_dataset_map[cfg["dataset"]],
         device=device,
         data_root=cfg["data_root"],

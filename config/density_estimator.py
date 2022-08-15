@@ -16,6 +16,41 @@ def get_base_config(dataset, standalone):
         standalone_info = {}
         scale_data = False
         whitening_transform = True
+        
+    if dataset in ["photons1", "pions1", "electrons2", "electrons3"]:
+        max_deposited_ratio = {
+            "photons1": 3.1,
+            "pions1": 7.0,
+            "electrons2": 2.0,
+            "electrons3": 2.0
+            }
+        shapes = {
+            "photons1": [[-1, 368, 1], [-1, 384, 1]],
+            "pions1": [[-1, 533, 1], [-1, 544, 1]],
+            "electrons2": [[-1, 45, 16, 9, 1], [-1, 45, 12, 12, 1]],
+            "electrons3": [[-1, 45, 50, 18, 1], [-1, 45, 32, 32, 1]]
+        }
+        energy_min_max = {
+            "photons1": [0.256, 4194.304],
+            "pions1": [0.256, 4194.304],
+            "electrons2": [1.0, 100.0],
+            "electrons3": [1.0, 100.0]
+        }
+        normalize_logspace = {
+            "photons1":[True, False],
+            "pions1":[True, False],
+            "electrons2":[False, True],
+            "electrons3":[False, False]
+        }
+        physics_dataset_info = {
+            "max_deposited_ratio": max_deposited_ratio[dataset],
+            "unpadded_shape": shapes[dataset][0],
+            "padded_shape": shapes[dataset][1],
+            "energy_min": energy_min_max[dataset][0],
+            "energy_max": energy_min_max[dataset][1],
+            "normalized_deposited_energy": normalize_logspace[dataset][0],
+            "logspace_incident_energies": normalize_logspace[dataset][1]
+        }
 
     return {
         "flatten": True,
@@ -38,7 +73,8 @@ def get_base_config(dataset, standalone):
         "valid_metrics": ["loss"],
         "test_metrics": ["log_likelihood"],
 
-        **standalone_info
+        **standalone_info,
+        **physics_dataset_info,
     }
 
 

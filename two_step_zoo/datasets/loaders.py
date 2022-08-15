@@ -3,6 +3,7 @@ from torch.utils.data import DataLoader
 
 from .image import get_image_datasets
 from .generated import get_generated_datasets
+from .calo_challenge import get_physics_datasets
 from .supervised_dataset import SupervisedDataset
 
 
@@ -13,6 +14,7 @@ def get_loaders_from_config(cfg, device):
     Updates `cfg` with dataset information.
     """
     train_loader, valid_loader, test_loader = get_loaders(
+        cfg,
         dataset=cfg["dataset"],
         device=device,
         data_root=cfg.get("data_root", "data/"),
@@ -35,6 +37,7 @@ def get_loaders_from_config(cfg, device):
 
 
 def get_loaders(
+        cfg,
         dataset,
         device,
         data_root,
@@ -48,6 +51,9 @@ def get_loaders(
         
     elif dataset in ["sphere", "klein", "two_moons"]:
         train_dset, valid_dset, test_dset = get_generated_datasets(dataset)
+    
+    elif dataset in ['photons1', 'pions1', 'electrons2', 'electrons3']:
+        train_dset, valid_dset, test_dset = get_physics_datasets(cfg, dataset, data_root, make_valid_loader)
 
     else:
         raise ValueError(f"Unknown dataset {dataset}")
