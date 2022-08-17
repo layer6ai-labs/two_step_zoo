@@ -29,7 +29,7 @@ def fid(module, eval_loader=None, train_loader=None, gen_samples=50000, gen_batc
         gt_feats = cache["gt_feats"]
         gt_mu = np.mean(gt_feats, axis=0)
         gt_sigma = np.cov(gt_feats, rowvar=False)
-        cache["gt_stats"] = gt_mu, gt_sigma    
+        cache["gt_stats"] = gt_mu, gt_sigma
     else:
         gt_mu, gt_sigma = cache["gt_stats"]
 
@@ -43,7 +43,7 @@ def precision_recall_density_coverage(module, eval_loader=None, train_loader=Non
     """
     dataloader = eval_loader if train_loader is None else train_loader
     inception = InceptionHelper(module, dataloader, gen_samples, gen_batch_size)
-    
+
     gen_feats = inception.get_inception_features()
 
     if cache is None:
@@ -53,17 +53,8 @@ def precision_recall_density_coverage(module, eval_loader=None, train_loader=Non
         cache["gt_feats"] = gt_feats
     else:
         gt_feats = cache["gt_feats"]
-        
+
     return prdc.compute_prdc(gt_feats, gen_feats, nearest_k)
-
-
-def tabular_fid(module, eval_loader=None, train_loader=None, cache=None):
-    """
-    Following Heusel et al. (2017), compute FID from the training set if provided.
-    """
-    dataloader = eval_loader if train_loader is None else train_loader
-    # TODO: implement
-    pass
 
 
 def log_likelihood(module, dataloader, cache=None):

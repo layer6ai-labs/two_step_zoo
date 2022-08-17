@@ -26,10 +26,10 @@ class TwoStepDensityEstimator(nn.Module):
             return self.density_estimator.log_prob(encodings)
 
     @batch_or_dataloader()
-    def log_prob(self, x):
+    def log_prob(self, x, eps=1e-9):
         with torch.no_grad():
             low_dim_log_prob = self.low_dim_log_prob(x)
-            log_det_jtj = self.generalized_autoencoder.log_det_jtj(x)
+            log_det_jtj = self.generalized_autoencoder.log_det_jtj(x, eps=eps)
             return low_dim_log_prob - 0.5*log_det_jtj
 
     def rec_error(self, *args, **kwargs):
