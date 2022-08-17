@@ -1,3 +1,6 @@
+"""
+Helpers for constructing command line flags and other arguments in command line tests.
+"""
 import os
 import pathlib
 import tempfile
