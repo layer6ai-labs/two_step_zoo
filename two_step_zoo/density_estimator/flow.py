@@ -24,13 +24,12 @@ class NormalizingFlow(DensityEstimator):
         )
 
     def sample(self, n_samples):
-        # TODO: batch in parent class
         samples = self._nflow.sample(n_samples)
         return self._inverse_data_transform(samples)
 
     @batch_or_dataloader()
     def log_prob(self, x):
-        # TODO: Careful with log probability when using _data_transform()
+        # NOTE: Careful with log probability when using _data_transform()
         x = self._data_transform(x)
         log_prob = self._nflow.log_prob(x)
 

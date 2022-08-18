@@ -1,6 +1,5 @@
 # NOTE: The below file is modified from commit `aeaf5fd` of
 #       https://github.com/jrmcornish/cif/blob/master/cif/writer.py
-
 import os
 import datetime
 import json
@@ -8,7 +7,6 @@ import sys
 
 import numpy as np
 import torch
-
 from tensorboardX import SummaryWriter
 
 
@@ -20,7 +18,6 @@ class Tee:
 
         self.encoding = self.primary_file.encoding
 
-    # TODO: Should redirect all attrs to primary_file if not found here.
     def isatty(self):
         return self.primary_file.isatty()
 

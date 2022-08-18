@@ -38,7 +38,7 @@ def test_all_pretrained_gae(gae, de):
     # Test that training runs without error
     train_run = subprocess.run(
         ["python", "single_main.py"] + flags["one_step"] + model_flags(gae, train_type="one_step")
-        + ["--is-gae"] # TODO: remove line when flag is deprecated
+        + ["--is-gae"]
     )
     assert train_run.returncode == 0
 

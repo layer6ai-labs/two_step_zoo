@@ -96,6 +96,8 @@ Assuming the pretrained GAE has run directory `runs/<gae-dir>`, this can be acco
 
 where `<de>` is any of the DE models listed above.
 
+**IMPORTANT NOTE:** The pretrained GAE *must* have been trained with the `--is-gae` flag if initially run by `single_main.py` so that the `main.py` command in this section properly picks up the config `gae_config.json`.
+
 We also often use the following tags described below:
 - `--load-best-valid-first`: Attempt to load the `best_valid` checkpoint from early stopping before the `latest` checkpoint.
 - `--freeze-pretrained-gae`: Freeze the weights of the pretrained GAE, i.e. *do not* train the pretrained GAE further.
@@ -142,7 +144,7 @@ where:
 
 - `model` is any of the following: `ae`, `arm`, `avb`, `bigan`, `ebm`, `flow`, `vae`, or `wae`
 - `dataset` is any of the datasets listed in the `main.py` usage
-- `--is-gae` is a flag that should be included when the model is a GAE, as it allows indexing the correct set of config files (__TODO__: Remove)
+- `--is-gae` is a flag that should be included when the model is a GAE, as it allows indexing the correct set of config files and saves the config as JSON under the name `gae_config.json`
 
 As with `main.py`, launching this command will produce a run directory containing the same elements as before.
 Also like `main.py`, `single_main.py` maintains the same behaviour for the following command line flags:
@@ -251,9 +253,3 @@ Locate the AVB+VAE folder trained using `main.py`:
 ### Acknowledgments
 
 We would like to acknowledge the [Continuously Indexed Flows](https://github.com/jrmcornish/cif) codebase for providing inspiration for several concepts in this codebase, including configs (including the dynamic command line update), run directories & checkpointing, data loading, and tensorboard writers.
-
-
-### Config Arguments
-
-__TODO__
-
