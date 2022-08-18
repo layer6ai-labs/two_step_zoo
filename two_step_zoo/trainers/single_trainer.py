@@ -284,7 +284,5 @@ class SingleTrainer(BaseTrainer):
         self.valid_loader = valid_loader
         self.test_loader = test_loader
 
-        # TODO: if there are problems with train_loader in evaluator, consider refactoring
-        #       evaluator to include train_loader as an attribute
         self.evaluator.valid_loader = valid_loader
         self.evaluator.test_loader = test_loader

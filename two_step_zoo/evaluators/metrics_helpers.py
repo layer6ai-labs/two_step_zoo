@@ -10,7 +10,7 @@ class InceptionHelper():
         self.gt_loader = gt_loader
         self.gen_samples = gen_samples
         self.gen_batch_size = gen_batch_size
-        self.inception = fid_score.InceptionV3().to(module.device) # TODO: submodule pytorch_fid?
+        self.inception = fid_score.InceptionV3().to(module.device)
 
     def gen_loader(self):
         # TODO: consider refactoring this into a `sample_loader` method in TwoStepDensityEstimator

@@ -142,7 +142,7 @@ where:
 
 - `model` is any of the following: `ae`, `arm`, `avb`, `bigan`, `ebm`, `flow`, `vae`, or `wae`
 - `dataset` is any of the datasets listed in the `main.py` usage
-- `--is-gae` is a flag that should be included when the model is a GAE, as it allows indexing the correct set of config files (__TODO__: Remove)
+- `--is-gae` is a flag that should be included when the model is a GAE, as it allows indexing the correct set of config files
 
 As with `main.py`, launching this command will produce a run directory containing the same elements as before.
 Also like `main.py`, `single_main.py` maintains the same behaviour for the following command line flags:
@@ -251,9 +251,3 @@ Locate the AVB+VAE folder trained using `main.py`:
 ### Acknowledgments
 
 We would like to acknowledge the [Continuously Indexed Flows](https://github.com/jrmcornish/cif) codebase for providing inspiration for several concepts in this codebase, including configs (including the dynamic command line update), run directories & checkpointing, data loading, and tensorboard writers.
-
-
-### Config Arguments
-
-__TODO__
-
