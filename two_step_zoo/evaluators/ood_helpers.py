@@ -28,6 +28,7 @@ def ood_acc(
 
         ind = 0
         for batch, _, _ in tqdm(dataloader, leave=False, desc=name):
+            batch = batch.to(module.device)
             with torch.no_grad():
                 log_prob_batch = score_fn(batch)
                 new_ind = ind + len(log_prob_batch)

@@ -33,6 +33,8 @@ class InceptionHelper():
 
         feats = []
         for batch, _, _ in tqdm(im_loader, desc=f"Getting {loader_type} features", leave=False, total=loader_len):
+            batch = batch.to(self.module.device)
+
             # Convert grayscale to RGB
             if batch.ndim == 3:
                 batch.unsqueeze_(1)

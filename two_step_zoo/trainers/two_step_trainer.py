@@ -307,9 +307,12 @@ class AlternatingIterationTrainer(BaseAlternatingTrainer):
     Class for alternating between training a GAE model and a DE model every iteration
     """
     def train_single_batch(self, batch):
+        batch = batch.to(self.gae.device)
         gae_loss_dict = self.gae_trainer.train_single_batch(batch)
 
         encoded_batch = self.module.generalized_autoencoder.encode(batch).detach()
+        encoded_batch = encoded_batch.to(self.de.device)
+
         de_loss_dict = self.de_trainer.train_single_batch(encoded_batch)
 
         if self.iteration % self._STEPS_PER_LOSS_WRITE == 0:
