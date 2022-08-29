@@ -23,11 +23,3 @@ class SupervisedDataset(torch.utils.data.Dataset):
 
     def __getitem__(self, index: int) -> Tuple[Any, Any, Any]:
         return self.x[index], self.y[index], index
-
-    def to(self, device):
-        return SupervisedDataset(
-            self.name,
-            self.role,
-            self.x.to(device),
-            self.y.to(device)
-        )

@@ -87,7 +87,7 @@ print(10*"-" + "shared_cfg" + 10*"-")
 pp.pprint(shared_cfg)
 
 
-train_loader, valid_loader, test_loader = get_loaders_from_config(shared_cfg, device)
+train_loader, valid_loader, test_loader = get_loaders_from_config(shared_cfg)
 writer = get_writer(args, gae_cfg=gae_cfg, de_cfg=de_cfg, shared_cfg=shared_cfg)
 two_step_module = get_two_step_module(gae_cfg, de_cfg, shared_cfg).to(device)
 
@@ -112,7 +112,6 @@ de_evaluator = get_evaluator(
 if args.test_ood or "likelihood_ood_acc" in shared_cfg["test_metrics"]:
     shared_evaluator = get_ood_evaluator(
         two_step_module,
-        device=device,
         cfg=shared_cfg,
         include_low_dim=True,
         valid_loader=valid_loader,
