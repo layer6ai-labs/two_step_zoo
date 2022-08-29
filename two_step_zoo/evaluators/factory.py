@@ -40,7 +40,6 @@ def get_evaluator(module, *, valid_loader, test_loader, valid_metrics, test_metr
 
 def get_ood_evaluator(
         module,
-        device,
         cfg,
         include_low_dim,
         valid_loader,
@@ -62,7 +61,6 @@ def get_ood_evaluator(
 
     oos_train_loader, _, oos_test_loader = get_loaders(
         dataset=ood_dataset_map[cfg["dataset"]],
-        device=device,
         data_root=cfg["data_root"],
         make_valid_loader=cfg["make_valid_loader"],
         train_batch_size=cfg["train_batch_size"],

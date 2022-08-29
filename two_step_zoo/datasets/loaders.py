@@ -6,7 +6,7 @@ from .generated import get_generated_datasets
 from .supervised_dataset import SupervisedDataset
 
 
-def get_loaders_from_config(cfg, device):
+def get_loaders_from_config(cfg):
     """
     Wrapper function providing frequently-used functionality.
 
@@ -14,7 +14,6 @@ def get_loaders_from_config(cfg, device):
     """
     train_loader, valid_loader, test_loader = get_loaders(
         dataset=cfg["dataset"],
-        device=device,
         data_root=cfg.get("data_root", "data/"),
         make_valid_loader=cfg["make_valid_loader"],
         train_batch_size=cfg["train_batch_size"],
@@ -36,7 +35,6 @@ def get_loaders_from_config(cfg, device):
 
 def get_loaders(
         dataset,
-        device,
         data_root,
         make_valid_loader,
         train_batch_size,
@@ -45,28 +43,28 @@ def get_loaders(
 ):
     if dataset in ["celeba", "mnist", "fashion-mnist", "cifar10", "svhn"]:
         train_dset, valid_dset, test_dset = get_image_datasets(dataset, data_root, make_valid_loader)
-        
+
     elif dataset in ["sphere", "klein", "two_moons"]:
         train_dset, valid_dset, test_dset = get_generated_datasets(dataset)
 
     else:
         raise ValueError(f"Unknown dataset {dataset}")
-    
-    train_loader = get_loader(train_dset, device, train_batch_size, drop_last=True)
+
+    train_loader = get_loader(train_dset, train_batch_size, drop_last=True)
 
     if make_valid_loader:
-        valid_loader = get_loader(valid_dset, device, valid_batch_size, drop_last=False)
+        valid_loader = get_loader(valid_dset, valid_batch_size, drop_last=False)
     else:
         valid_loader = None
 
-    test_loader = get_loader(test_dset, device, test_batch_size, drop_last=False)
+    test_loader = get_loader(test_dset, test_batch_size, drop_last=False)
 
     return train_loader, valid_loader, test_loader
-    
-    
-def get_loader(dset, device, batch_size, drop_last):
+
+
+def get_loader(dset, batch_size, drop_last):
     return DataLoader(
-        dset.to(device),
+        dset,
         batch_size=batch_size,
         shuffle=True,
         drop_last=drop_last,
@@ -81,9 +79,9 @@ def get_embedding_loader(embeddings, batch_size, drop_last, role):
         role=role,
         x=embeddings
     )
-    return get_loader(dataset, embeddings.device, batch_size, drop_last)
+    return get_loader(dataset, batch_size, drop_last)
 
 
 def remove_drop_last(loader):
     dset = loader.dataset
-    return get_loader(dset, dset.x.device, loader.batch_size, False)
+    return get_loader(dset, loader.batch_size, False)

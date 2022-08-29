@@ -66,7 +66,7 @@ print(10*"-" + "cfg" + 10*"-")
 pp.pprint(cfg)
 
 
-train_loader, valid_loader, test_loader = get_loaders_from_config(cfg, device)
+train_loader, valid_loader, test_loader = get_loaders_from_config(cfg)
 writer = get_writer(args, cfg=cfg)
 
 
@@ -81,7 +81,6 @@ module = get_single_module(
 if args.test_ood or "likelihood_ood_acc" in cfg["test_metrics"]:
     evaluator = get_ood_evaluator(
         module,
-        device,
         cfg=cfg,
         include_low_dim=False,
         valid_loader=valid_loader,
