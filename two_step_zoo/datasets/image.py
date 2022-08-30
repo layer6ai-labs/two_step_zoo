@@ -9,8 +9,8 @@ import torchvision.datasets
 import torchvision.transforms as transforms
 
 from two_step_zoo.datasets.supervised_dataset import SupervisedDataset
-        
-        
+
+
 class CelebA(Dataset):
     """
     CelebA PyTorch dataset
@@ -20,7 +20,7 @@ class CelebA(Dataset):
     def __init__(self, root: str, role: str = "train"):
         self.root = Path(root)
         self.role = role
-        
+
         self.transform = transforms.Compose([
             transforms.Resize((64, 64)),
             transforms.ToTensor(),
@@ -47,11 +47,8 @@ class CelebA(Dataset):
 
     def __len__(self) -> int:
         return len(self.filename)
-    
-    def to(self, device):
-        return self
-    
-    
+
+
 def get_image_datasets_by_class(dataset_name, data_root, valid_fraction):
     data_dir = os.path.join(data_root, dataset_name)
 
@@ -61,7 +58,7 @@ def get_image_datasets_by_class(dataset_name, data_root, valid_fraction):
 
     else:
         raise ValueError(f"Unknown dataset {dataset_name}")
-    
+
     train_dset = data_class(root=data_dir, role="train")
     valid_dset = data_class(root=data_dir, role="valid")
     test_dset = data_class(root=data_dir, role="test")
@@ -121,19 +118,19 @@ def get_torchvision_datasets(dataset_name, data_root, valid_fraction):
 
     train_dset = image_tensors_to_dataset(dataset_name, "train", train_images, train_labels)
     valid_dset = image_tensors_to_dataset(dataset_name, "valid", valid_images, valid_labels)
-    
+
     test_images, test_labels = get_raw_image_tensors(dataset_name, train=False, data_root=data_root)
     test_dset = image_tensors_to_dataset(dataset_name, "test", test_images, test_labels)
 
     return train_dset, valid_dset, test_dset
-    
+
 
 def get_image_datasets(dataset_name, data_root, make_valid_dset):
     # Currently hardcoded; could make configurable
     valid_fraction = 0.1 if make_valid_dset else 0
-    
+
     torchvision_datasets = ["mnist", "fashion-mnist", "svhn", "cifar10"]
-    
+
     get_datasets_fn = get_torchvision_datasets if dataset_name in torchvision_datasets else get_image_datasets_by_class
-    
+
     return get_datasets_fn(dataset_name, data_root, valid_fraction)
