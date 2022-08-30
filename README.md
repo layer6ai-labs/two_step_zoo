@@ -179,7 +179,7 @@ again from this directory. These tests may take several minutes to run.
 
 We have included two `jupyter` notebooks with this repository within the `notebooks` directory.
 
-The first, entitled __TODO__, performs the 2D circle example from the paper end-to-end.
+The first, entitled `von_mises_example.ipynb`, performs the 2D circle example from the paper end-to-end.
 
 The second, entitled `ood_histogram.ipynb`, demonstrates how to obtain the OOD detection histograms from the paper.
 We have provided this functionality in a notebook since the histograms require some manual specification.
