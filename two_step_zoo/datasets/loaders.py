@@ -50,26 +50,25 @@ def get_loaders(
     else:
         raise ValueError(f"Unknown dataset {dataset}")
 
-    train_loader = get_loader(train_dset, train_batch_size, drop_last=True)
+    train_loader = get_loader(train_dset, train_batch_size, drop_last=True, pin_memory=True)
 
     if make_valid_loader:
-        valid_loader = get_loader(valid_dset, valid_batch_size, drop_last=False)
+        valid_loader = get_loader(valid_dset, valid_batch_size, drop_last=False, pin_memory=True)
     else:
         valid_loader = None
 
-    test_loader = get_loader(test_dset, test_batch_size, drop_last=False)
+    test_loader = get_loader(test_dset, test_batch_size, drop_last=False, pin_memory=True)
 
     return train_loader, valid_loader, test_loader
 
 
-def get_loader(dset, batch_size, drop_last):
+def get_loader(dset, batch_size, drop_last, **loader_kwargs):
     return DataLoader(
         dset,
         batch_size=batch_size,
         shuffle=True,
         drop_last=drop_last,
-        num_workers=0,
-        pin_memory=False
+        **loader_kwargs,
     )
 
 
