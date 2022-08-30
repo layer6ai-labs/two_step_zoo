@@ -42,7 +42,7 @@ def load_single_module(run_dir):
     cfg = load_config_from_run_dir(run_dir)
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    train_loader, valid_loader, test_loader = get_loaders_from_config(cfg, device)
+    train_loader, valid_loader, test_loader = get_loaders_from_config(cfg)
 
     data_dim = 784 if cfg["dataset"] in ["mnist", "fashion-mnist"] else 3072
     data_shape = (1, 28, 28) if cfg["dataset"] in ["mnist", "fashion-mnist"] else (3, 32, 32)
@@ -84,7 +84,7 @@ def load_twostep_module(run_dir):
     gae_cfg, de_cfg, shared_cfg = load_configs_from_run_dir(run_dir)
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    train_loader, valid_loader, test_loader = get_loaders_from_config(shared_cfg, device)
+    train_loader, valid_loader, test_loader = get_loaders_from_config(shared_cfg)
 
     two_step_module = get_two_step_module(gae_cfg, de_cfg, shared_cfg).to(device)
 
