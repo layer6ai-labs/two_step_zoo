@@ -162,8 +162,8 @@ class TwoStepComponent(nn.Module):
         return lr_scheduler
 
     def set_whitening_params(self, mu, sigma):
-        self.whitening_mu = torch.reshape(mu, self._get_whiten_dims())
-        self.whitening_sigma = torch.reshape(sigma, self._get_whiten_dims())
+        self.whitening_mu = torch.reshape(mu, self._get_whiten_dims()).to(self.device)
+        self.whitening_sigma = torch.reshape(sigma, self._get_whiten_dims()).to(self.device)
         self.whitening_sigma[self.whitening_sigma < self._MIN_WHITEN_STDDEV] = self._MIN_WHITEN_STDDEV
 
     def _get_whiten_dims(self):
