@@ -47,8 +47,6 @@ def get_configs(dataset, generalized_autoencoder, density_estimator):
     shared_cfg["generalized_autoencoder"] = generalized_autoencoder
     shared_cfg["density_estimator"] = density_estimator
 
-    de_cfg["data_dim"] = gae_cfg["latent_dim"]
-
     return gae_cfg, de_cfg, shared_cfg
 
 
