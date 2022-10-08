@@ -135,7 +135,7 @@ class BaseTrainer:
             self.sample_and_record()
 
         test_results = self.evaluator.test()
-        self.record_dict("test", test_results, self.epoch, save=True)
+        self.record_dict(self.ckpt_prefix + "_test", test_results, self.epoch, save=True)
 
     def _validate(self):
         valid_results = self.evaluator.validate()
@@ -185,7 +185,7 @@ class BaseTrainer:
 
         if save:
             self.writer.write_json(
-                f"{self.module.model_type}_{tag_prefix}_metrics",
+                f"{tag_prefix}_{self.module.model_type}_metrics",
                 {k: v.item() for k, v in value_dict.items()}
             )
 

@@ -74,6 +74,7 @@ else:
     )
     gae_cfg = {**gae_cfg, **dict(parse_config_arg(kv) for kv in args.gae_config)}
     de_cfg = {**de_cfg, **dict(parse_config_arg(kv) for kv in args.de_config)}
+    de_cfg["data_dim"] = gae_cfg["latent_dim"]
     shared_cfg = {**shared_cfg, **dict(parse_config_arg(kv) for kv in args.shared_config)}
 
 
