@@ -185,7 +185,7 @@ class BaseTrainer:
 
         if save:
             self.writer.write_json(
-                f"{tag_prefix}_{self.module.model_type}__metrics",
+                f"{tag_prefix}_{self.module.model_type}_metrics",
                 {k: v.item() for k, v in value_dict.items()}
             )
 
