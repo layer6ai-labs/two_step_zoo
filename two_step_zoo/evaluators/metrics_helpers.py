@@ -11,6 +11,7 @@ class InceptionHelper():
         self.gen_samples = gen_samples
         self.gen_batch_size = gen_batch_size
         self.inception = fid_score.InceptionV3().to(module.device)
+        self.inception.eval()
 
     def gen_loader(self):
         # TODO: consider refactoring this into a `sample_loader` method in TwoStepDensityEstimator
@@ -42,7 +43,7 @@ class InceptionHelper():
                 batch = batch.repeat(1, 3, 1, 1)
 
             with torch.no_grad():
-                batch_feats = self.inception(batch)[0]
+                batch_feats = self.inception(batch / 255.)[0]
 
             batch_feats = batch_feats.squeeze().cpu().numpy()
             feats.append(batch_feats)
