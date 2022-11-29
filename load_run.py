@@ -40,6 +40,7 @@ def get_writer(run_dir, cfg):
 
 def load_single_module(run_dir):
     cfg = load_config_from_run_dir(run_dir)
+    cfg["early_stopping_metric"] = None
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
     train_loader, valid_loader, test_loader = get_loaders_from_config(cfg)
@@ -57,7 +58,7 @@ def load_single_module(run_dir):
 
     trainer = get_single_trainer(
         module=module,
-        ckpt_prefix="de",
+        ckpt_prefix="gae" if cfg["gae"] else "de",
         writer=writer,
         cfg=cfg,
         train_loader=train_loader,
@@ -82,6 +83,8 @@ def load_single_module(run_dir):
 
 def load_twostep_module(run_dir):
     gae_cfg, de_cfg, shared_cfg = load_configs_from_run_dir(run_dir)
+    gae_cfg["early_stopping_metric"] = None
+    de_cfg["early_stopping_metric"] = None
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
     train_loader, valid_loader, test_loader = get_loaders_from_config(shared_cfg)

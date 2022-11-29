@@ -256,8 +256,8 @@ def get_wae_config(dataset, standalone):
         "sigma": 1.,
 
         "lr": None,
-        "disc_lr": 0.0005,
-        "rec_lr": 0.001,
+        "disc_lr": 0.00025,
+        "rec_lr": 0.0005,
 
         "use_lr_scheduler": None,
         "use_disc_lr_scheduler": False,
@@ -267,6 +267,7 @@ def get_wae_config(dataset, standalone):
         "max_bad_valid_epochs": 30,
 
         "valid_metrics": ["l2_reconstruction_error"],
+        "test_metrics": ["l2_reconstruction_error", "fid"],
     }
 
     if net == "mlp":
