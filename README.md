@@ -12,10 +12,10 @@ The command
 
     conda env create -f env-lock.yml
 
-will create a `conda` environment called `two_step`.
+will create a `conda` environment called `two-step`.
 Launch this environment using the command
 
-    conda activate two_step
+    conda activate two-step
 
 before running any experiments.
 
