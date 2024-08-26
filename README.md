@@ -1,4 +1,8 @@
-# README
+<p align="center">
+<a href="https://layer6.ai/"><img src="https://github.com/layer6ai-labs/DropoutNet/blob/master/logs/logobox.jpg" width="180"></a>
+</p>
+
+# Diagnosinng and Fixing Manifold Overfitting in Deep Generative Models
 
 This is the codebase accompanying the paper ["Diagnosing and Fixing Manifold Overfitting in Deep Generative Models"](https://arxiv.org/abs/2204.07172) accepted to TMLR in July 2022.
 Here we discuss how to run the experiments in the paper and give a general overview of the codebase.
